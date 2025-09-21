@@ -10,7 +10,7 @@ namespace Krins.Analyzer
     {
         public void Initialize(IncrementalGeneratorInitializationContext initContext)
         {
-            // 获取所有包含 ObjectFuncAttribute 的类型
+            // 获取所有包含 AotReflectionAttribute 的类型
             var classInfoProvider = initContext.SyntaxProvider.ForAttributeWithMetadataName(
                 "Krins.Analyzer.Attributes.AotReflectionAttribute",
                 (syntaxNode, _) => true,
