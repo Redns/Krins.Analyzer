@@ -46,11 +46,9 @@ namespace Krins.Analyzer
                         $"    {classTypeSymbol.DeclaredAccessibility.GetAccessibilityLiteral()} partial class {classTypeSymbol.Name}"
                     );
                     sb.AppendLine("    {");
-                    // Dictionary<string, Type> PropertyTypes
-                    sb.AppendLine(
-                        "        public static Dictionary<string, Type> PropertyTypes { get; } = new()"
-                    );
-                    sb.AppendLine("        {");
+                    // PropertyInfo[] PropertyInfos { get; }
+                    sb.AppendLine("        public static PropertyInfo[] PropertyInfos { get; } =");
+                    sb.AppendLine("        [");
                     // 遍历所有属性
                     var propertySymbols = classTypeSymbol
                         .GetMembers()
@@ -59,10 +57,10 @@ namespace Krins.Analyzer
                     foreach (var propertySymbol in propertySymbols)
                     {
                         sb.AppendLine(
-                            $"            {{nameof({propertySymbol.Name}), typeof({propertySymbol.Type.GetFullyQualifiedName()})}},"
+                            $"            new PropertyInfo{{Name = nameof({propertySymbol.Name}), Type = typeof({propertySymbol.Type.GetFullyQualifiedName()})}},"
                         );
                     }
-                    sb.AppendLine("        };");
+                    sb.AppendLine("        ];");
                     sb.AppendLine();
                     // object GetValue(string name)
                     sb.AppendLine("        public object GetValue(string name) => name switch");
